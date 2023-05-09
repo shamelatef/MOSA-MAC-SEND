@@ -524,7 +524,7 @@ char* array_to_string(unsigned char* arr, size_t arr_len) {
     return str;
 }
 static int Tx_continuous(int iChannel,SlRateIndex_e rate,int iNumberOfPackets,
-                                    int iTxPowerLevel,long dIntervalMiliSec)
+                                    int iTxPowerLevel,char MAC)
 {
 
 
@@ -550,7 +550,7 @@ static int Tx_continuous(int iChannel,SlRateIndex_e rate,int iNumberOfPackets,
         char* str = array_to_string(hello_message, 5);
 
         UART_PRINT("%s\n\r",str);
-        if(strcmp(str,"hello")==0 && buffer[17]==0x31 )
+        if(strcmp(str,"hello")==0 && buffer[17]==MAC )
         {
             break;
         }
@@ -700,7 +700,7 @@ int main()
     }
 */
 
-    Tx_continuous(12,30,1,50,133333333.3333333);
+    Tx_continuous(12,30,1,50,0x31);
 
 
     lRetVal = sl_Stop(SL_STOP_TIMEOUT);
